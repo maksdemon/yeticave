@@ -1,6 +1,20 @@
 <?php
 $is_auth = rand(0, 1);
+function format_sum($amount) {
+    // Округляем число до целого
+    $rounded_amount = ceil($amount);
 
+    // Если число меньше 1000, оставляем его без изменений
+    if ($rounded_amount < 1000) {
+        $formatted_amount = $rounded_amount;
+    } else {
+        // Если число больше 1000, отделяем пробелом три последних цифры от остальной части суммы
+        $formatted_amount = number_format($rounded_amount, 0, '.', ' ');
+    }
+
+    // Добавляем знак рубля ₽ и возвращаем итоговую строку
+    return $formatted_amount . ' ₽';
+}
 $user_name = 'mak'; // укажите здесь ваше имя
 // Массив категорий
 $categories_list = [
@@ -130,7 +144,7 @@ $announcements_list = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost">цена <?=$value['price']; ?><b class="rub">р</b></span>
+                                <span class="lot__cost">цена <?= format_sum($value['price']); ?></span>
                             </div>
                             <div class="lot__timer timer">
                                 12:23
