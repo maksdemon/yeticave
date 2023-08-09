@@ -1,71 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
-function format_sum($amount) {
-    // Округляем число до целого
-    $rounded_amount = ceil($amount);
 
-    // Если число меньше 1000, оставляем его без изменений
-    if ($rounded_amount < 1000) {
-        $formatted_amount = $rounded_amount;
-    } else {
-        // Если число больше 1000, отделяем пробелом три последних цифры от остальной части суммы
-        $formatted_amount = number_format($rounded_amount, 0, '.', ' ');
-    }
 
-    // Добавляем знак рубля ₽ и возвращаем итоговую строку
-    return $formatted_amount . ' ₽';
-}
-$user_name = 'mak'; // укажите здесь ваше имя
-// Массив категорий
-$categories_list = [
-    'boards' => 'Доски и лыжи',
-    'attachment' => 'Крепления',
-    'boots' => 'Ботинки',
-    'clothing' => 'Одежда',
-    'tools' => 'Инструменты',
-    'other' => 'Разное'
-];
-
-// Массив объявлений
-$announcements_list = [
-    [
-        'name' => '2014 Rossignol District Snowboard',
-        'category' => 'boards',
-        'price' => 10999,
-        'picture' => 'img/lot-1.jpg'
-    ],
-    [
-        'name' => 'DC Ply Mens 2016/2017 Snowboard',
-        'category' => 'boards',
-        'price' => 159999,
-        'picture' => 'img/lot-2.jpg'
-    ],
-    [
-        'name' => 'Крепления Union Contact Pro 2015 года размер L/XL',
-        'category' => 'attachment',
-        'price' => 8000,
-        'picture' => 'img/lot-3.jpg'
-    ],
-    [
-        'name' => 'Ботинки для сноуборда DC Mutiny Charocal',
-        'category' => 'boots',
-        'price' => 10999,
-        'picture' => 'img/lot-4.jpg'
-    ],
-    [
-        'name' => 'Куртка для сноуборда DC Mutiny Charocal',
-        'category' => 'clothing',
-        'price' => 7500,
-        'picture' => 'img/lot-5.jpg'
-    ],
-    [
-        'name' => 'Маска Oakley Canopy',
-        'category' => 'other',
-        'price' => 5400,
-        'picture' => 'img/lot-6.jpg'
-    ]
-];
-$title='Главная1';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -115,7 +51,7 @@ $title='Главная1';
 </header>
 
 <main class="container">
-    <?= $content ?>
+    <?= $content; ?>
 </main>
 </div>
 

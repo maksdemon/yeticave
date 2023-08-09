@@ -1,52 +1,72 @@
 <?php
-require ('templates/layout.php');
+require_once ('helpers.php');
+require_once ('pages/test.php');
+$categories_list = [
+    'boards' => 'Доски и лыжи',
+    'attachment' => 'Крепления',
+    'boots' => 'Ботинки',
+    'clothing' => 'Одежда',
+    'tools' => 'Инструменты',
+    'other' => 'Разное'
+];
 
-include_template(main.php){
+// Массив объявлений
+$announcements_list = [
+    [
+        'name' => '2014 Rossignol District Snowboard',
+        'category' => 'boards',
+        'price' => 10999,
+        'picture' => 'img/lot-1.jpg'
+    ],
+    [
+        'name' => 'DC Ply Mens 2016/2017 Snowboard',
+        'category' => 'boards',
+        'price' => 159999,
+        'picture' => 'img/lot-2.jpg'
+    ],
+    [
+        'name' => 'Крепления Union Contact Pro 2015 года размер L/XL',
+        'category' => 'attachment',
+        'price' => 8000,
+        'picture' => 'img/lot-3.jpg'
+    ],
+    [
+        'name' => 'Ботинки для сноуборда DC Mutiny Charocal',
+        'category' => 'boots',
+        'price' => 10999,
+        'picture' => 'img/lot-4.jpg'
+    ],
+    [
+        'name' => 'Куртка для сноуборда DC Mutiny Charocal',
+        'category' => 'clothing',
+        'price' => 7500,
+        'picture' => 'img/lot-5.jpg'
+    ],
+    [
+        'name' => 'Маска Oakley Canopy',
+        'category' => 'other',
+        'price' => 5400,
+        'picture' => 'img/lot-6.jpg'
+    ]
+];
+$user_name ='mmm';
 
-}
+$page_content= include_template('main.php',
+    ['categories_list'=> $categories_list,
+    'announcements' => $announcements_list
 
-/*
-function include_template($name, array $data = []) {
-    $name = 'templates/' . $name;
-    $result = '';
+]);
 
-    if (!is_readable($name)) {
-        return $result;
-    }
-
-    ob_start();
-    extract($data);
-    require $name;
-
-    $result = ob_get_clean();
-
-    return $result;
-}
-
-
-$page_content3= include_template ('main.php', [
-   // вывод из простого mysqli_fetch_all 'type1'=> array_column ($test,"title"),
-    'type_project'=> $task_sql2,
-  //  'link_project'=>$task_sql_project_id,
-      'task_c_name'=>$task_count1 ,
-      'errorsearch2'=> $errorsearch2,
-
-   // 'task_c_name2'=>$task_count,
-    'task_count_oll1' =>$task_count_oll ,
-
-  //  "task_search" =>  $search_result,
-
-
-
-    'show_complete_tasks'=> $show_complete_tasks]);
-$layout_content =include_template ('layout.php',
-    ['content2'=>$page_content3,
-        'title1'=> $title2,
-        'name_user1' => $result_name_nick3
+$layout_content = include_template ('layout.php',
+    ['content'=>$page_content,
+     'title'=> 'тест',
+      'user_name' =>'mmm',
+      // 'name_user1' => $result_name_nick3
+        'categories_list'=> $categories_list,
     ]);
 
 
+print ($layout_content);
 
 
 
-*/

@@ -17,6 +17,3 @@ function format_sum($amount) {
 }
 
 // Пример использования функции
-$sum_amount = 549990000;
-$formatted_sum = format_sum($sum_amount);
-echo $formatted_sum;  // Выведет: "54 999 ₽"
