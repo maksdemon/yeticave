@@ -13,7 +13,7 @@ $categories_list = [
 $datetime = date_create('2023-08-12');
 $datatest  = new DateTime();
 
-//echo date_format($datatest, 'Y/m/d H:i:s') . '<br/>';
+
 $interval = date_diff( $datatest,$datetime);
 //echo $interval->format('%a дней, %I min');
 
