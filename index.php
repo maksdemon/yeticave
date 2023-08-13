@@ -17,7 +17,6 @@ $datatest  = new DateTime();
 $interval = date_diff( $datatest,$datetime);
 //echo $interval->format('%a дней, %I min');
 
-
 // Массив объявлений
 $announcements_list = [
     [
