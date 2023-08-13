@@ -60,8 +60,8 @@ $is_auth = rand(0, 1);
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
             <?php foreach ($categories_list as  $category=> $value) : ?>
-                <li class="promo__item promo__item--<?= $category ?>">
-                    <a class="promo__link" href="pages/all-lots.html"><?= $value ?></a>
+                <li class="promo__item promo__item--<?= htmlspecialchars($category) ?>">
+                    <a class="promo__link" href="pages/all-lots.html"><?= htmlspecialchars($value) ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
