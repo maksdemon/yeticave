@@ -36,12 +36,12 @@ function date_Limit ($date) {
 function Timelimit($datetime)
 {
     $datatest = new DateTime();
-
     $interval = date_diff($datatest, $datetime);
     $days = $interval->format('%a'); // Получаем количество дней
     $hours = $interval->format('%h') + $days * 24; // Добавляем дни к часам
     $minutes = $interval->format('%i');
-
+    $hours =str_pad($hours,2,0,STR_PAD_LEFT);
+    $minutes =str_pad($minutes,2,0,STR_PAD_LEFT);
     return array($hours, $minutes);
    // return array("[" . $hours . ", " . $minutes . "]");
 
