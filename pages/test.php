@@ -46,8 +46,3 @@ function Timelimit($datetime)
 
 }
 
-//$datetime = date_create('2023-08-12 19:00');
-//$result = Timelimit($datetime);
-
-//echo "Часы: " . $result[0] . "<br/>";
-//echo "Минуты: " . $result[1] . "<br/>";
