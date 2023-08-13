@@ -17,14 +17,12 @@ function format_sum($amount) {
 }
 
 // Пример использования функции
-//функция дат
+//функция дат можно удлаить
 function date_Limit ($date) {
     $datatest  = new DateTime();
     $datatest2 = date_format($datatest, 'Y-m-d');
     $interval = date_diff( $datatest,$date);
     $formattedInterval =$interval->format('%a дней, %I min');
-
-
     return $formattedInterval ;
 }
 //$datetime = date_create('2023-11-12');
@@ -35,6 +33,7 @@ function date_Limit ($date) {
 
 function Timelimit($datetime)
 {
+    date_default_timezone_set('Europe/Moscow');
     $datatest = new DateTime();
     $interval = date_diff($datatest, $datetime);
     $days = $interval->format('%a'); // Получаем количество дней
