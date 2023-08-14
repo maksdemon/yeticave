@@ -2,6 +2,25 @@
 require_once ('helpers.php');
 require_once ('pages/test.php');
 
+$con = mysqli_connect("localhost", "root", "", "yeticave");
+mysqli_set_charset($con, "utf8");
+
+if ($con == false) {
+    print("Ошибка подключения: " . mysqli_connect_error());
+}
+else {
+    print("Соединение установлено");
+    // выполнение запросов
+}
+
+
+
+
+
+
+
+
+
 $categories_list = [
     'boards' => 'Доски и лыжи',
     'attachment' => 'Крепления',
@@ -10,6 +29,15 @@ $categories_list = [
     'tools' => 'Инструменты',
     'other' => 'Разное'
 ];
+
+
+
+
+
+
+
+
+
 $datetime = date_create('2023-08-12');
 $datatest  = new DateTime();
 
