@@ -1,10 +1,10 @@
 CREATE DATABASE yeticave
     DEFAULT CHAR SET utf8
     DEFAULT COLLATE utf8_general_ci;
-USE yeticave;
 
 
-INSERT INTO users SET email = 'vasya@mail.ru', password = 'secret';
+
+
 
 
 CREATE TABLE categories (
