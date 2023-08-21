@@ -9,8 +9,8 @@ CREATE DATABASE yeticave
 
 CREATE TABLE categories (
                             id INT AUTO_INCREMENT PRIMARY KEY,
-                            title VARCHAR(255),
-                            symbol_code VARCHAR(255)
+                            title VARCHAR(255) UNIQUE,
+                            name_category VARCHAR(255)
 
 );
 
@@ -30,10 +30,10 @@ CREATE TABLE lots (
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
                       lot_name VARCHAR (255),
-                      description TEXT,
-                      image VARCHAR (255),
-                      initial_price INT,
-                      end_date DATE,
+                      category TEXT,
+                      picture VARCHAR (255),
+                      price INT,
+                      expiration_date DATE,
                       step INT,
                       user_id INT,
                       winner_id INT,
@@ -47,7 +47,7 @@ CREATE TABLE lots (
 CREATE TABLE bets (
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       bet_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                      price INT,
+                      price_s INT,
                       user_id INT,
                       lot_id INT,
                       FOREIGN KEY (user_id) REFERENCES users(id),
