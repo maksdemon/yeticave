@@ -45,9 +45,13 @@ VALUES
     (77777, 2, 24),
 (9999999, 3, 29);
 
+
+#получить все лот
+SELECT * FROM lots
 #получить все категории
-  SELECT * FROM categories;
+SELECT * FROM categories;
 #получить самые новые, открытые лоты. Каждый лот должен включать название,
+SELECT * FROM lots WHERE        expiration_date > CURDATE() ORDER BY create_date DESC;
 # стартовую цену, ссылку на изображение, цену, название категории;
 SELECT * FROM lots WHERE expiration_date<CURDATE() ORDER BY create_date DESC;
 # показать лот по его ID. Получите также название категории, к которой принадлежит лот;
