@@ -46,10 +46,10 @@ if ($res) {
 }
 
 
+$id_lot=24;
 
 function get_query_lot ($id_lot) {
-    return "SELECT lots.title, lots.start_price, lots.img, lots.date_finish, lots.lot_description, categories.name_category FROM lots
-    JOIN categories ON lots.category_id=categories.id
+    return "SELECT * FROM lots  JOIN categories ON lots.category=categories.name_category
     WHERE lots.id=$id_lot;";
 }
 

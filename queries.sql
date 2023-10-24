@@ -29,7 +29,7 @@ VALUES
     ('other', 'Разное');
 
 INSERT INTO
-    lots(lot_name, category,price,picture,expiration_date,user_id)
+    lots(lot_name, category,price,picture,expiration_date,user_id,description_lot)
 VALUES
     ('2014 Rossignol District Snowboard', 'boards', 10999, 'img/lot-1.jpg', '2023-08-14',2),
     ('DC Ply Mens 20162017 Snowboard', 'boards',  159999, 'img/lot-2.jpg', '2023-08-17',3),
