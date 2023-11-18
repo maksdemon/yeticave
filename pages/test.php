@@ -17,32 +17,3 @@ function format_sum($amount) {
 }
 
 // Пример использования функции
-//функция дат можно удлаить
-function date_Limit ($date) {
-    $datatest  = new DateTime();
-    $datatest2 = date_format($datatest, 'Y-m-d');
-    $interval = date_diff( $datatest,$date);
-    $formattedInterval =$interval->format('%a дней, %I min');
-    return $formattedInterval ;
-}
-//$datetime = date_create('2023-11-12');
-//$result = date_Limit($datetime);
-//echo $result;
-
-
-
-function Timelimit($datetime)
-{
-    date_default_timezone_set('Europe/Moscow');
-    $datatest = new DateTime();
-    $interval = date_diff($datatest, $datetime);
-    $days = $interval->format('%a'); // Получаем количество дней
-    $hours = $interval->format('%h') + $days * 24; // Добавляем дни к часам
-    $minutes = $interval->format('%i');
-    $hours =str_pad($hours,2,0,STR_PAD_LEFT);
-    $minutes =str_pad($minutes,2,0,STR_PAD_LEFT);
-    return array($hours, $minutes);
-   // return array("[" . $hours . ", " . $minutes . "]");
-
-}
-
