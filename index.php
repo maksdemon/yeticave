@@ -26,7 +26,22 @@ $categories_list = [
     'other' => 'Разное'
 ];
 
+$con = mysqli_connect("localhost", "root", "", "yeticave");
+mysqli_set_charset($con, "utf8");
+
+$sql = "   SELECT lots.id AS lotsid, lots.*, categories.*
+FROM lots
+JOIN categories ON lots.category = categories.name_category";
+$result = mysqli_query($con, $sql);
+$announcements_list = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+
+
+
+
+
 // Массив объявлений
+/*
 $announcements_list = [
     [
         'name' => '2014 Rossignol District Snowboard',
@@ -65,6 +80,7 @@ $announcements_list = [
         'picture' => 'img/lot-6.jpg'
     ]
 ];
+*/
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -139,8 +155,8 @@ $announcements_list = [
                         <img src=" <?=$value['picture']; ?>" width="350" height="260" alt="">
                     </div>
                     <div class="lot__info">
-                        <span class="lot__category"><?= $value['category'] ?></span>
-                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?= $value['name'] ?></a></h3>
+                        <span class="lot__category"><?= $value['title'] ?></span>
+                        <h3 class="lot__title"><a class="text-link" href="lot.php?id=<?= $value['lotsid'] ?>"><?= $value['lot_name'] ?></a></h3>
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>

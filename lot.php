@@ -16,11 +16,13 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-  //  print("Соединение установлено");
+    print("Соединение установлено");
     // выполнение запросов
 }
+
 if (!$con) {
     $error = mysqli_connect_error();
+    print("няма");
 } else {
     $sql = "SELECT name_category, title FROM categories";
     $result = mysqli_query($con, $sql);
@@ -30,8 +32,11 @@ if (!$con) {
         $error = mysqli_error($con);
     }
 }
-$id =25;
-//$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+//$id =25;
+
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+print($id);
+
 if ($id) {
     $sql = get_query_lot ($id);
 } else {
