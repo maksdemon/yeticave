@@ -1,4 +1,5 @@
 <h2><?= $lot["title"]; ?></h2>
+
 <div class="lot-item__content">
     <div class="lot-item__left">
         <div class="lot-item__image">
@@ -11,8 +12,10 @@
         <div class="lot-item__state">
             <?php $res = get_time_left($lot["expiration_date"]) ?>
             <div class="lot-item__timer timer <?php if ($res[0] < 1): ?>timer--finishing<?php endif; ?>">
+
                 <?= "$res[0] : $res[1]"; ?>
             </div>
+
             <div class="lot-item__cost-state">
                 <div class="lot-item__rate">
                     <span class="lot-item__amount">Текущая цена</span>
