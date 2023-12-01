@@ -16,6 +16,7 @@
                 <?= "$res[0] : $res[1]"; ?>
             </div>
 
+
             <div class="lot-item__cost-state">
                 <div class="lot-item__rate">
                     <span class="lot-item__amount">Текущая цена</span>
