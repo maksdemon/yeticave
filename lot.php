@@ -40,6 +40,7 @@ print($id);
 if ($id) {
     $sql = get_query_lot ($id);
 } else {
+    http_response_code(404);
     echo "<br>";
     echo ("няма");
 
