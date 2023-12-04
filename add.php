@@ -36,7 +36,6 @@ if (!$con) {
 
 
 
-
 $page_content= include_template('add_lot.php',
     [
         "categories" => $categories,

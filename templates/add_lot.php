@@ -26,12 +26,11 @@
                     <label for="category">Категория <sup>*</sup></label>
                     <select id="category" name="category">
                         <option>Выберите категорию</option>
-                        <option>Доски и лыжи</option>
-                        <option>Крепления</option>
-                        <option>Ботинки</option>
-                        <option>Одежда</option>
-                        <option>Инструменты</option>
-                        <option>Разное</option>
+                        <?php foreach ($categories as $category): ?>
+                        <option>
+                               <?= $category["title"]; ?>
+                        </option>
+                        <?php endforeach; ?>
                     </select>
                     <span class="form__error">Выберите категорию</span>
                 </div>

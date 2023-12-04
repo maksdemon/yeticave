@@ -66,6 +66,7 @@ function get_query_lot ($id_lot) {
 
 
 
+
 function get_time_left ($date) {
     date_default_timezone_set('Europe/Moscow');
 
