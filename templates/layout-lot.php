@@ -55,6 +55,7 @@ $is_auth = rand(0, 1);
                         <a href="pages/all-lots.html"><?= $category["title"]; ?></a>
                     </li>
                 <?php endforeach; ?>
+
             </ul>
         </nav>
         <section class="lot-item container"><?= $content; ?></section>
