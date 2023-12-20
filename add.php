@@ -31,16 +31,13 @@ if (!$con) {
     }
 }
 //$id =25;
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
-    //$filename = uniqid() . '.img';
     $addlot['picture'] = $_FILES['picture']['name'];
     $filename = uniqid() . '.jpg';
     move_uploaded_file($_FILES['picture']['tmp_name'], 'uploads/' . $filename);
-
-    //header("Location: /index.php?success=true");
-
     $value1 = $addlot['lot-name'];
     $value2 = $addlot['category'];
     $value3 =$addlot['message'];
@@ -49,31 +46,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value6 =$addlot['lot-step'];
     $value7 =$addlot['lot-date'];
     $value8 = 1;
+    $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
 
+    foreach ($required_fields as $field) {
+        if (empty($_POST[$field])) {
+            $errors[$field] = 'Это поле обязательно для заполнения';
+        }
+    }
+    if (!is_numeric($value5) || $value5 <= 0) {
+        $errors['lot-rate'] = 'Введите число больше нуля в поле "начальная цена"';
+    }
 
     $sqladd="INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES
                            (  '$value1','$value2','$value3','$value4','$value5','$value6','$value7','$value8');";
     $statement = db_get_prepare_stmt($con, $sqladd);
-    // Связываем параметры с их значениями
-   // $statement->bindParam(':value1', $value1);
-    //$statement->bindParam(':value2', $value2);
-    //$statement->bindParam(':value3', $value3);
-    //$statement->bindParam(':value4', $value4);
-    //$statement->bindParam(':value5', $value5);
-    //$statement->bindParam(':value6', $value6);
-    //$statement->bindParam(':value7', $value7);
-    //$statement->bindParam(':value8', $value8);
-  //  "INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES (  'lot_name','category','description_lot','picture','5','6','7','8');";
-
- //   $stmt = db_get_prepare_stmt($link, $sqladd, $gif);
-//    $res = mysqli_stmt_execute($stmt);
 //// Выполняем запрос
    $statement->execute();
-
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "<pre>";
-    print_r($_POST);
+    //print_r($_POST);
+    //var_dump($errors);
     echo "</pre>";
 }
 
@@ -81,7 +74,7 @@ $page_content= include_template('add_lot.php',
     [
         "categories" => $categories,
        // "lot" => $lot
-
+        "errors" =>$errors
     ]);
 
 $layout_content = include_template ('layout-lot.php',
