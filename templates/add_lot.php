@@ -23,7 +23,7 @@ echo "баши";
                 <div class="form__item form__item"> <!-- form__item--invalid -->
                     <label for="lot-name">Наименование <sup>*</sup></label>
                     <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" >
-
+                    <span class="<?= !empty($errors['lot-name']) ? 'form__item--invalid' : 'form__error' ?>">Напишите название лота</span>
                 </div>
                 <div class="form__item">
                     <label for="category">Категория <sup>*</sup></label>
@@ -35,13 +35,13 @@ echo "баши";
                         </option>
                         <?php endforeach; ?>
                     </select>
-                    <span class="form__error">Выберите категорию</span>
+                    <span class="<?= !empty($errors['lot-name']) ? 'form__item--invalid' : 'form__error' ?>">Выберите категорию</span>
                 </div>
             </div>
             <div class="form__item form__item--wide">
                 <label for="message">Описание <sup>*</sup></label>
                 <textarea id="message" name="message" placeholder="Напишите описание лота"  ></textarea>
-                <span class="form__error">Напишите описание лота</span>
+                <span class="<?= !empty($errors['lot-name']) ? 'form__item--invalid' : 'form__error' ?>">Напишите описание лота</span>
             </div>
             <div class="form__item form__item--file">
                 <label>Изображение <sup>*</sup></label>
@@ -50,23 +50,24 @@ echo "баши";
                     <label for="lot-img">
                         Добавить
                     </label>
+                    <span class="<?= !empty($errors['picture']) ? 'form__item--invalid' : 'form__error' ?>">Неверный формат или нет изображения</span>
                 </div>
             </div>
             <div class="form__container-three">
                 <div class="form__item form__item--small">
                     <label for="lot-rate">Начальная цена <sup>*</sup></label>
                     <input id="lot-rate" type="text" name="lot-rate" placeholder="0" >
-                    <span class="form__error">Введите начальную цену</span>
+                    <span class="<?= !empty($errors['lot-rate']) ? 'form__item--invalid' : 'form__error' ?>">Введите начальную цену</span>
                 </div>
                 <div class="form__item form__item--small">
                     <label for="lot-step">Шаг ставки <sup>*</sup></label>
                     <input id="lot-step" type="text" name="lot-step" placeholder="0" >
-                    <span class="form__error">Введите шаг ставки</span>
+                    <span class="<?= !empty($errors['lot-step']) ? 'form__item--invalid' : 'form__error' ?>">Введите шаг ставки</span>
                 </div>
                 <div class="form__item">
                     <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
                     <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" >
-                    <span class="form__error">Введите дату завершения торгов</span>
+                    <span class="<?= !empty($errors['lot-date']) ? 'form__item--invalid' : 'form__error' ?>">Введите дату завершения торгов</span>
                 </div>
             </div>
             <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>

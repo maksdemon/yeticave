@@ -56,6 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!is_numeric($value5) || $value5 <= 0) {
         $errors['lot-rate'] = 'Введите число больше нуля в поле "начальная цена"';
     }
+    if (!ctype_digit($value6) || $value6 <= 0) {
+        $errors['lot-step'] = 'Шаг должен быть больше 0"';
+    }
+    $allowed_formats = ['image/jpeg', 'image/jpg', 'image/png'];
+    $addlot['picture']  = $_FILES['picture']['type']; // Извлекаем тип файла из массива $_FILES
+
+    if (!in_array( $addlot['picture'] , $allowed_formats)) {
+        // Здесь проводится проверка на допустимые форматы файлов
+        $errors['picture'] = 'недопустимый формат изображения"';
+    }
+
 
     $sqladd="INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES
                            (  '$value1','$value2','$value3','$value4','$value5','$value6','$value7','$value8');";
