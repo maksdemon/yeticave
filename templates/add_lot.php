@@ -9,8 +9,7 @@
 </head>
 <body>
 <?php
-var_dump($errors);
-echo "баши";
+
 ?>
 <div class="page-wrapper">
 

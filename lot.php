@@ -16,13 +16,13 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-    print("Соединение установлено");
+   // print("Соединение установлено");
     // выполнение запросов
 }
 
 if (!$con) {
     $error = mysqli_connect_error();
-    print("няма");
+  //  print("няма");
 } else {
     $sql = "SELECT name_category, title FROM categories";
     $result = mysqli_query($con, $sql);
@@ -57,15 +57,10 @@ if ($res) {
 //var_dump($lot);
 
 function get_query_lot ($id_lot) {
- return "SELECT * FROM lots  JOIN categories ON lots.category=categories.name_category
+ return "SELECT * FROM lots  JOIN categories ON lots.category=categories.id
     WHERE lots.id=$id_lot;";
 
 }
-
-
-
-
-
 
 function get_time_left ($date) {
     date_default_timezone_set('Europe/Moscow');

@@ -14,13 +14,13 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-    print("Соединение установлено");
+  //  print("Соединение установлено");
     // выполнение запросов
 }
 
 if (!$con) {
     $error = mysqli_connect_error();
-    print("няма");
+    //print("няма");
 } else {
     $sql = "SELECT name_category, title ,id FROM categories";
     $result = mysqli_query($con, $sql);
@@ -31,8 +31,8 @@ if (!$con) {
     }
 }
 //$id =25;
-$errors = [];
-
+//$errors = [];
+$errors=[];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
     $addlot['picture'] = $_FILES['picture']['name'];
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value1 = $addlot['lot-name'];
     $value2 = $addlot['category'];
     $value3 =$addlot['message'];
-    $value4 =$addlot['picture'];
+    $value4 =$filename;
     $value5 =$addlot['lot-rate'];
     $value6 =$addlot['lot-step'];
     $value7 =$addlot['lot-date'];
@@ -66,14 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Здесь проводится проверка на допустимые форматы файлов
         $errors['picture'] = 'недопустимый формат изображения"';
     }
-
-
     $sqladd="INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES
                            (  '$value1','$value2','$value3','$value4','$value5','$value6','$value7','$value8');";
     $statement = db_get_prepare_stmt($con, $sqladd);
 //// Выполняем запрос
    $statement->execute();
+    if ($statement) {
+        $lastInsertedId = mysqli_insert_id($con);
+        header("Location: /lot.php?id=$lastInsertedId");
+        exit();
+    }
 }
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "<pre>";
     //print_r($_POST);
