@@ -14,13 +14,13 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-  //  print("Соединение установлено");
+    print("Соединение установлено");
     // выполнение запросов
 }
 
 if (!$con) {
     $error = mysqli_connect_error();
-    //print("няма");
+
 } else {
     $sql = "SELECT name_category, title ,id FROM categories";
     $result = mysqli_query($con, $sql);
@@ -31,10 +31,18 @@ if (!$con) {
     }
 }
 //$id =25;
-//$errors = [];
-$errors=[];
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
+    var_dump($addlot);
+    $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
+    $errors=[];
+    foreach ($required_fields as $field) {
+        if (empty($_POST[$field])) {
+            $errors[$field] = 'Это поле обязательно для заполнения';
+        }
+    }
     $addlot['picture'] = $_FILES['picture']['name'];
     $filename = uniqid() . '.jpg';
     move_uploaded_file($_FILES['picture']['tmp_name'], 'uploads/' . $filename);
@@ -46,13 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value6 =$addlot['lot-step'];
     $value7 =$addlot['lot-date'];
     $value8 = 1;
-    $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
 
-    foreach ($required_fields as $field) {
-        if (empty($_POST[$field])) {
-            $errors[$field] = 'Это поле обязательно для заполнения';
-        }
-    }
     if (!is_numeric($value5) || $value5 <= 0) {
         $errors['lot-rate'] = 'Введите число больше нуля в поле "начальная цена"';
     }
@@ -66,31 +68,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Здесь проводится проверка на допустимые форматы файлов
         $errors['picture'] = 'недопустимый формат изображения"';
     }
-    $sqladd="INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES
+
+    if (empty($errors)) {
+        $sqladd="INSERT INTO lots (lot_name, category,description_lot,picture,price,step,expiration_date,user_id) VALUES
                            (  '$value1','$value2','$value3','$value4','$value5','$value6','$value7','$value8');";
-    $statement = db_get_prepare_stmt($con, $sqladd);
+        $statement = db_get_prepare_stmt($con, $sqladd);
 //// Выполняем запрос
-   $statement->execute();
-    if ($statement) {
-        $lastInsertedId = mysqli_insert_id($con);
-        header("Location: /lot.php?id=$lastInsertedId");
-        exit();
+        $statement->execute();
+        if ($statement) {
+            $lastInsertedId = mysqli_insert_id($con);
+            header("Location: /lot.php?id=$lastInsertedId");
+            exit();
+        }
+
+
     }
+
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo "<pre>";
-    //print_r($_POST);
-    //var_dump($errors);
-    echo "</pre>";
-}
 
 $page_content= include_template('add_lot.php',
     [
         "categories" => $categories,
        // "lot" => $lot
-        "errors" =>$errors
+        "errors" =>$errors,
+       // "addlot"=>$addlot
     ]);
 
 $layout_content = include_template ('layout-lot.php',

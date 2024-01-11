@@ -1,6 +1,7 @@
 <?php
 require_once ('helpers.php');
 require_once ('pages/test.php');
+
 /*
 $con = mysqli_connect("localhost", "yeti", "mN2sB4oZ6c", "yeti");
 mysqli_set_charset($con, "utf8");
@@ -43,7 +44,7 @@ if ($id) {
     http_response_code(404);
     echo "<br>";
     echo ("няма");
-
+    var_dump($addlot);
 }
 
 $res = mysqli_query($con, $sql);

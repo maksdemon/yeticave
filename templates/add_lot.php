@@ -9,6 +9,8 @@
 </head>
 <body>
 <?php
+echo ('баг');
+var_dump($errors);
 
 ?>
 <div class="page-wrapper">
