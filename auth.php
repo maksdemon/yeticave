@@ -1,7 +1,7 @@
 <?php
 require_once ('helpers.php');
 require_once ('config/config.php');
-
+$errors=[];
 
 if (!$con) {
     $error = mysqli_connect_error();
@@ -16,13 +16,46 @@ if (!$con) {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $form = $_POST;
+    $required = ['email', 'password'];
+    $errors = [];
+    $required_fields = ['email', 'password'];
 
+    foreach ($required_fields as $field) {
+        if (empty($_POST[$field])) {
+            $errors[$field] = 'Это поле обязательно для заполнения';
+        }
+    }
+    if (empty($errors)){
+
+        $email = mysqli_real_escape_string($con, $form['email']);
+        $sql = "SELECT * FROM users WHERE user_email = '$email'";
+        $res = mysqli_query($con, $sql);
+        $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
+
+        if (!count($errors) and $user) {
+            if (password_verify($form['password'], $user['password'])) {
+                $_SESSION['user'] = $user;
+            }
+            else {
+                $errors['password'] = 'Неверный пароль';
+            }
+        }
+        else {
+            $errors['email'] = 'Такой пользователь не найден';
+        }
+    }
+
+
+}
 
 
 $page_content= include_template('login.php',
     [
         "categories" => $categories,
-
+        "errors" =>$errors,
+        "demo"=>$demo
 
     ]);
 
