@@ -1,4 +1,5 @@
-<?php
+<?
+session_start();
 require_once ('helpers.php');
 require_once ('config/config.php');
 $errors=[];
@@ -85,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         $sqladd = "INSERT INTO users (user_email,user_password,user_name,contact) VALUES
-                          (  '$value1',' $value2','$value3','$value4');";
+                          ( '$value1','$value2','$value3','$value4');";
         $statement = db_get_prepare_stmt($con, $sqladd);
 //// Выполняем запрос
         $statement->execute();

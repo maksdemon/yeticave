@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once ('helpers.php');
 require_once ('config/config.php');
 $errors=[];
@@ -18,7 +19,6 @@ if (!$con) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
-    $required = ['email', 'password'];
     $errors = [];
     $required_fields = ['email', 'password'];
 
@@ -35,8 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
 
         if (!count($errors) and $user) {
-            if (password_verify($form['password'], $user['password'])) {
+            if (password_verify($form['password'], $user['user_password'])) {
                 $_SESSION['user'] = $user;
+                header("Location: /index.php");
             }
             else {
                 $errors['password'] = 'Неверный пароль';
@@ -55,7 +56,7 @@ $page_content= include_template('login.php',
     [
         "categories" => $categories,
         "errors" =>$errors,
-        "demo"=>$demo
+        "demo"=>$user['user_password']
 
     ]);
 
