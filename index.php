@@ -1,4 +1,5 @@
 <?php
+require_once ('config/session.php');
 $is_auth = rand(0, 1);
 function format_sum($amount) {
     // Округляем число до целого

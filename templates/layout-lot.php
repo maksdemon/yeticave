@@ -1,7 +1,6 @@
 <?php
-$is_auth = rand(0, 1);
+require_once ('config/session.php');
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">

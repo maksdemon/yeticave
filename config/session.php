@@ -3,8 +3,11 @@ session_start(); // Обязательно вызывать session_start() пе
 
 // Проверяем, есть ли имя пользователя в сессии
 if (isset($_SESSION['user_name'])) {
-    $userName = $_SESSION['user_name'];
-    echo "Добро пожаловать, $userName!";
+    $user_name = $_SESSION['user_name'];
+    //echo "Добро пожаловать, $user_name!";
+    $is_auth = 1;
 } else {
-    echo "Пользователь не авторизован.";
+  //  echo "Пользователь не авторизован.";
+    $is_auth = 0;
+    $user_name="";
 }

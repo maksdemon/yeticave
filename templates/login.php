@@ -10,8 +10,6 @@
 
 <div class="page-wrapper">
 
-    <?= var_dump($_POST); ?>
-    <?= var_dump($demo); ?>
   <main>
 
     <form class="form container " action="auth.php" method="post" > <!-- form--invalid -->

@@ -1,6 +1,7 @@
 <?php
 require_once ('helpers.php');
 require_once ('pages/test.php');
+require_once ('config/session.php');
 /*
 $con = mysqli_connect("localhost", "yeti", "mN2sB4oZ6c", "yeti");
 mysqli_set_charset($con, "utf8");
@@ -14,7 +15,7 @@ if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-    print("Соединение установлено");
+   // print("Соединение установлено");
     // выполнение запросов
 }
 
@@ -32,12 +33,12 @@ if (!$con) {
 }
 //$id =25;
 
-
+$errors=[];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
-    var_dump($addlot);
+  //  var_dump($addlot);
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
-    $errors=[];
+
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             $errors[$field] = 'Это поле обязательно для заполнения';
@@ -99,7 +100,8 @@ $page_content= include_template('add_lot.php',
 $layout_content = include_template ('layout-lot.php',
     ['content'=>$page_content,
         'title'=> 'тест',
-        'user_name' =>'mmm',
+       'user_name' => $user_name,
+        'is_auth'=>$is_auth,
 // 'name_user1' => $result_name_nick3
         "categories" => $categories
     ]);

@@ -1,7 +1,8 @@
 <?php
-session_start();
+require_once ('config/session.php');
 require_once ('helpers.php');
 require_once ('config/config.php');
+
 $errors=[];
 
 if (!$con) {
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!count($errors) and $user) {
             if (password_verify($form['password'], $user['user_password'])) {
-                $_SESSION['user'] = $user;
+                $_SESSION['user_name'] = $user['user_name'];
                 header("Location: /index.php");
             }
             else {
@@ -56,16 +57,17 @@ $page_content= include_template('login.php',
     [
         "categories" => $categories,
         "errors" =>$errors,
-        "demo"=>$user['user_password']
+     //   "demo"=>$user['user_password']
 
     ]);
 
 $layout_content = include_template ('layout-lot.php',
     ['content'=>$page_content,
         'title'=> 'тест',
-        'user_name' =>'mmm',
+        'user_name' => $user_name,
+        'is_auth'=>$is_auth,
 // 'name_user1' => $result_name_nick3
-        "categories" => $categories,
+        "categories" => $categories
 
     ]);
 

@@ -1,7 +1,7 @@
 <?php
 require_once ('helpers.php');
 require_once ('pages/test.php');
-
+require_once ('config/session.php');
 /*
 $con = mysqli_connect("localhost", "yeti", "mN2sB4oZ6c", "yeti");
 mysqli_set_charset($con, "utf8");
@@ -100,7 +100,8 @@ $page_content= include_template('main-lot.php',
 $layout_content = include_template ('layout-lot.php',
 ['content'=>$page_content,
 'title'=> 'тест',
-'user_name' =>'mmm',
+    'user_name' => $user_name,
+    'is_auth'=>$is_auth,
 // 'name_user1' => $result_name_nick3
         "categories" => $categories
 ]);
