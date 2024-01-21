@@ -44,7 +44,7 @@ if ($id) {
     http_response_code(404);
     echo "<br>";
     echo ("няма");
-    var_dump($addlot);
+
 }
 
 $res = mysqli_query($con, $sql);
@@ -54,14 +54,50 @@ if ($res) {
     $error = mysqli_error($con);
 }
 
+function getTimeAgo($betDate) {
+    $currentTime = time(); // Текущее время в формате timestamp
+    $betDateTimestamp = strtotime($betDate); // Время сделки в формате timestamp
 
-//var_dump($lot);
+    $timeDifference = $currentTime - $betDateTimestamp; // Разница в секундах
+
+    // Вычисляем количество минут
+    $minutesAgo = floor($timeDifference / 60);
+
+    if ($minutesAgo < 60) {
+        return "{$minutesAgo} минут назад";
+    } else {
+        // Если прошло больше 60 минут, вычисляем количество часов
+        $hoursAgo = floor($minutesAgo / 60);
+        $remainingMinutes = $minutesAgo % 60;
+
+        return "{$hoursAgo} часов и {$remainingMinutes} минут назад";
+    }
+}
+
+// Пример использования функции
+$betDate = $yourBetArray[$index]['bet_date'];
+$timeAgo = getTimeAgo($betDate);
+echo "Сделка была сделана {$timeAgo}.";
+
 
 function get_query_lot ($id_lot) {
  return "SELECT * FROM lots  JOIN categories ON lots.category=categories.id
     WHERE lots.id=$id_lot;";
-
 }
+
+$sqlbets="SELECT bets.*, users.*
+FROM bets
+JOIN users ON bets.user_id = users.id
+WHERE bets.lot_id = 25";
+$resultbets = mysqli_query($con, $sqlbets);
+$betsrate = mysqli_fetch_all($resultbets, MYSQLI_ASSOC);
+
+var_dump($betsrate);
+
+
+
+
+
 
 function get_time_left ($date) {
     date_default_timezone_set('Europe/Moscow');
@@ -93,7 +129,8 @@ function get_time_left ($date) {
 $page_content= include_template('main-lot.php',
 [
     "categories" => $categories,
-    "lot" => $lot
+    "lot" => $lot,
+    "betsrate"=> $betsrate
 
 ]);
 
