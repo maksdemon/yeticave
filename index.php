@@ -87,6 +87,7 @@ $page_content= include_template('main.php',
         // "lot" => $lot
         "errors" =>$errors,
         // "addlot"=>$addlot
+
     ]);
 
 $layout_content = include_template ('layout-lot.php',

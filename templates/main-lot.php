@@ -8,14 +8,13 @@
         <p class="lot-item__description"><?= $lot["title"]; ?></p>
     </div>
     <div class="lot-item__right">
-        <div class="lot-item__state">
+        <?php if ($is_auth): // Если пользователь авторизован ?>
+
+        <div class="lot-item__state ">
             <?php $res = get_time_left($lot["expiration_date"]) ?>
             <div class="lot-item__timer timer <?php if ($res[0] < 1): ?>timer--finishing<?php endif; ?>">
-
                 <?= "$res[0] : $res[1]"; ?>
             </div>
-
-
             <div class="lot-item__cost-state">
                 <div class="lot-item__rate">
                     <span class="lot-item__amount">Текущая цена</span>
@@ -34,6 +33,10 @@
                 <button type="submit" class="button">Сделать ставку</button>
             </form>
         </div>
+        <?php else: // Если пользователь не авторизован ?>
+            <!-- Здесь можете добавить код, который будет отображаться, когда пользователь не авторизован -->
+            <p>Для того чтобы сделать ставку, авторизуйтесь.</p>
+        <?php endif; ?>
         <div class="history">
             <h3>История ставок (<span>10</span>)</h3>
             <table class="history__list">
@@ -43,12 +46,11 @@
                     <td class="history__time">5 минут назад</td>
                 </tr>
                 <?php foreach ($betsrate as $category=>$value): ?>
-
                     <tr class="history__item">
                         <td class="history__name"><?= $value["user_name"]; ?></td>
                         <td class="history__price"><?= $value["price"]; ?></td>
-                        getTimeAgo
-                        <td class="history__time"><?= $value["price"]; ?></td>
+                        <?php $ago= getTimeAgo($value["bet_date"]); ?>
+                        <td class="history__time"><?=  $ago; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

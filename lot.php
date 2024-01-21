@@ -75,9 +75,9 @@ function getTimeAgo($betDate) {
 }
 
 // Пример использования функции
-$betDate = $yourBetArray[$index]['bet_date'];
-$timeAgo = getTimeAgo($betDate);
-echo "Сделка была сделана {$timeAgo}.";
+//$betDate = $yourBetArray[$index]['bet_date'];
+//$timeAgo = getTimeAgo($betDate);
+//echo "Сделка была сделана {$timeAgo}.";
 
 
 function get_query_lot ($id_lot) {
@@ -93,10 +93,6 @@ $resultbets = mysqli_query($con, $sqlbets);
 $betsrate = mysqli_fetch_all($resultbets, MYSQLI_ASSOC);
 
 var_dump($betsrate);
-
-
-
-
 
 
 function get_time_left ($date) {
@@ -130,8 +126,9 @@ $page_content= include_template('main-lot.php',
 [
     "categories" => $categories,
     "lot" => $lot,
-    "betsrate"=> $betsrate
-
+    "betsrate"=> $betsrate,
+   // "minutesAgo"=>$minutesAgo
+    'is_auth'=>$is_auth
 ]);
 
 $layout_content = include_template ('layout-lot.php',
@@ -139,7 +136,7 @@ $layout_content = include_template ('layout-lot.php',
 'title'=> 'тест',
     'user_name' => $user_name,
     'is_auth'=>$is_auth,
-// 'name_user1' => $result_name_nick3
+
         "categories" => $categories
 ]);
 
