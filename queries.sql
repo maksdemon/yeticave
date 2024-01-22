@@ -61,3 +61,6 @@ UPDATE lots SET lot_name = 'newname' WHERE id = 25;
 #получить список ставок для лота по его идентификатору с сортировкой по дате.
 SELECT * FROM bets WHERE lot_id = 25 ORDER BY bet_date;
 #SELECT * FROM lots  JOIN users ON lots.user_id = users.id WHERE users.id IN (2)
+
+#создание полнотекстового поиска
+CREATE FULLTEXT INDEX yeti_search ON lots(lot_name,description_lot);

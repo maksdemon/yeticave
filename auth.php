@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
     $errors = [];
     $required_fields = ['email', 'password'];
-
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             $errors[$field] = 'Это поле обязательно для заполнения';
@@ -39,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!count($errors) and $user) {
             if (password_verify($form['password'], $user['user_password'])) {
                 $_SESSION['user_name'] = $user['user_name'];
+                $_SESSION['user_id'] = $user['id'];
                 header("Location: /index.php");
             }
             else {

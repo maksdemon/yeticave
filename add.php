@@ -7,6 +7,11 @@ $con = mysqli_connect("localhost", "yeti", "mN2sB4oZ6c", "yeti");
 mysqli_set_charset($con, "utf8");
 
 */
+if (!$is_auth) {
+    http_response_code(403); // Устанавливаем код ответа 403 Forbidden
+    die("Доступ запрещен"); // Останавливаем выполнение скрипта
+}
+
 $title="test";
 $con = mysqli_connect("localhost", "root", "", "yeticave");
 mysqli_set_charset($con, "utf8");
@@ -38,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
   //  var_dump($addlot);
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
-
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             $errors[$field] = 'Это поле обязательно для заполнения';
@@ -54,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value5 =$addlot['lot-rate'];
     $value6 =$addlot['lot-step'];
     $value7 =$addlot['lot-date'];
-    $value8 = 1;
+    $value8 =$user_id;
 
     if (!is_numeric($value5) || $value5 <= 0) {
         $errors['lot-rate'] = 'Введите число больше нуля в поле "начальная цена"';
@@ -86,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 }
-
 
 
 $page_content= include_template('add_lot.php',

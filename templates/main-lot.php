@@ -9,7 +9,6 @@
     </div>
     <div class="lot-item__right">
         <?php if ($is_auth): // Если пользователь авторизован ?>
-
         <div class="lot-item__state ">
             <?php $res = get_time_left($lot["expiration_date"]) ?>
             <div class="lot-item__timer timer <?php if ($res[0] < 1): ?>timer--finishing<?php endif; ?>">

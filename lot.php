@@ -36,7 +36,7 @@ if (!$con) {
 //$id =25;
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-print($id);
+
 
 if ($id) {
     $sql = get_query_lot ($id);
@@ -92,7 +92,7 @@ WHERE bets.lot_id = 25";
 $resultbets = mysqli_query($con, $sqlbets);
 $betsrate = mysqli_fetch_all($resultbets, MYSQLI_ASSOC);
 
-var_dump($betsrate);
+
 
 
 function get_time_left ($date) {

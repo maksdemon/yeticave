@@ -4,6 +4,7 @@ session_start(); // Обязательно вызывать session_start() пе
 // Проверяем, есть ли имя пользователя в сессии
 if (isset($_SESSION['user_name'])) {
     $user_name = $_SESSION['user_name'];
+    $user_id = $_SESSION['user_id'];
     //echo "Добро пожаловать, $user_name!";
     $is_auth = 1;
 } else {

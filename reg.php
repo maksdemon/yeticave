@@ -2,7 +2,12 @@
 session_start();
 require_once ('helpers.php');
 require_once ('config/config.php');
+require_once ('config/session.php');
 $errors=[];
+if ($is_auth) {
+    http_response_code(403); // Устанавливаем код ответа 403 Forbidden
+    die("Доступ запрещен"); // Останавливаем выполнение скрипта
+}
 
 if (!$con) {
     $error = mysqli_connect_error();
@@ -115,7 +120,7 @@ $layout_content = include_template ('layout-lot.php',
         'user_name' =>'mmm',
 // 'name_user1' => $result_name_nick3
         "categories" => $categories,
-
+        'is_auth'=>$is_auth
     ]);
 
 

@@ -2,6 +2,18 @@
 require_once ('config/session.php');
 require_once ('helpers.php');
 require_once ('config/config.php');
+$errors=[];
+if (!$con) {
+    $error = mysqli_connect_error();
+} else {
+    $sql = "SELECT name_category, title ,id FROM categories";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        $error = mysqli_error($con);
+    }
+}
 function format_sum($amount) {
     // Округляем число до целого
     $rounded_amount = ceil($amount);
@@ -17,34 +29,6 @@ function format_sum($amount) {
     // Добавляем знак рубля ₽ и возвращаем итоговую строку
     return $formatted_amount . ' ₽';
 }
-$errors=[];
-
-
-if (!$con) {
-    $error = mysqli_connect_error();
-
-} else {
-    $sql = "SELECT name_category, title ,id FROM categories";
-    $result = mysqli_query($con, $sql);
-    if ($result) {
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    } else {
-        $error = mysqli_error($con);
-    }
-}
-/*
-function Timelimit($datetime)
-{
-    $datatest = new DateTime();
-
-    $interval = date_diff($datatest, $datetime);
-    $days = $interval->format('%a'); // Получаем количество дней
-    $hours = $interval->format('%h') + $days * 24; // Добавляем дни к часам
-    $minutes = $interval->format('%i');
-
-    return array($hours, $minutes);
-}
-*/
 function Timelimit ($datetime) {
     date_default_timezone_set('Europe/Moscow');
     if ($datetime instanceof DateTime) {
@@ -65,24 +49,17 @@ function Timelimit ($datetime) {
     }
     return ['00', '00']; // Вернуть 00:00, если дата уже прошла
 }
-
-
-
-
-/*
-$sqllots = "   SELECT lots.id AS lotsid, lots.*, categories.*
-FROM lots
-JOIN categories ON lots.category = categories.name_category";*/
-$sqllots = "SELECT * FROM lots LIMIT 6 ";
+$sqllots = "SELECT * FROM lots LIMIT 6 OFFSET 0";
 $resultlots  = mysqli_query($con, $sqllots);
 $announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
 
 
 
-$page_content= include_template('main.php',
+
+$page_content= include_template('search.php',
     [
-        "categories" => $categories,
-        "announcements_list"=>$announcements_list,
+    //    "categories" => $categories,
+       "announcements_list"=>$announcements_list,
         // "lot" => $lot
         "errors" =>$errors,
         // "addlot"=>$addlot
@@ -95,7 +72,7 @@ $layout_content = include_template ('layout-lot.php',
         'user_name' => $user_name,
         'is_auth'=>$is_auth,
 // 'name_user1' => $result_name_nick3
-        "categories" => $categories
+       "categories" => $categories
     ]);
 
 
