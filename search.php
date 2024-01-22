@@ -49,7 +49,24 @@ function Timelimit ($datetime) {
     }
     return ['00', '00']; // Вернуть 00:00, если дата уже прошла
 }
-$sqllots = "SELECT * FROM lots LIMIT 6 OFFSET 0";
+//$sqllots = "SELECT * FROM lots LIMIT 6 OFFSET 0";
+//$resultlots  = mysqli_query($con, $sqllots);
+//$announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
+
+
+
+
+$cur_page = $_GET['id'] ?? 1;
+$page_items = 6;
+$result = mysqli_query($con, "SELECT COUNT(*) as cnt FROM lots");
+$items_count = mysqli_fetch_assoc($result)['cnt'];
+$pages_count = ceil($items_count / $page_items);
+$offset = ($cur_page - 1) * $page_items;
+$pages = range(1, $pages_count);
+//$sql = 'SELECT * FROM lots '   . $page_items . ' OFFSET ' . $offset;
+$sqllots = 'SELECT * FROM lots '
+    . 'ORDER BY lot_name DESC LIMIT ' . $page_items . ' OFFSET ' . $offset;
+
 $resultlots  = mysqli_query($con, $sqllots);
 $announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
 
@@ -63,6 +80,8 @@ $page_content= include_template('search.php',
         // "lot" => $lot
         "errors" =>$errors,
         // "addlot"=>$addlot
+        'pages'=>$pages,
+        'cur_page'   =>  $cur_page
 
     ]);
 
