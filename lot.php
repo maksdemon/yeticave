@@ -92,8 +92,10 @@ WHERE bets.lot_id = 25";
 $resultbets = mysqli_query($con, $sqlbets);
 $betsrate = mysqli_fetch_all($resultbets, MYSQLI_ASSOC);
 
-
-
+$maxprice ="SELECT bets.id,bets.bet_date,bets.user_id,bets.lot_id, lots.* , bets.price AS betprice FROM bets JOIN lots ON lots.id = bets.lot_id
+                                                                                       WHERE bets.lot_id = 25 ORDER BY bets.price DESC LIMIT 1";
+$resultmax= mysqli_query($con, $maxprice);
+$maxfin= mysqli_fetch_assoc( $resultmax);
 
 function get_time_left ($date) {
     date_default_timezone_set('Europe/Moscow');
@@ -128,7 +130,8 @@ $page_content= include_template('main-lot.php',
     "lot" => $lot,
     "betsrate"=> $betsrate,
    // "minutesAgo"=>$minutesAgo
-    'is_auth'=>$is_auth
+    'is_auth'=>$is_auth,
+    'maxfin'=>$maxfin
 ]);
 
 $layout_content = include_template ('layout-lot.php',
