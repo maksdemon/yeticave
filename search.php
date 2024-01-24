@@ -52,23 +52,44 @@ function Timelimit ($datetime) {
 //$sqllots = "SELECT * FROM lots LIMIT 6 OFFSET 0";
 //$resultlots  = mysqli_query($con, $sqllots);
 //$announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
-
+$search = $_GET['q'] ?? '';
 
 
 
 $cur_page = $_GET['id'] ?? 1;
 $page_items = 6;
-$result = mysqli_query($con, "SELECT COUNT(*) as cnt FROM lots");
+if (empty($search)){
+    $result = mysqli_query($con, "SELECT COUNT(*) as cnt FROM lots");
+}
+else{
+    $result = mysqli_query($con, "SELECT COUNT(*) as cnt FROM lots WHERE MATCH(lot_name, description_lot) AGAINST('$search') ");
+}
+echo $search;
 $items_count = mysqli_fetch_assoc($result)['cnt'];
 $pages_count = ceil($items_count / $page_items);
 $offset = ($cur_page - 1) * $page_items;
 $pages = range(1, $pages_count);
 //$sql = 'SELECT * FROM lots '   . $page_items . ' OFFSET ' . $offset;
-$sqllots = 'SELECT * FROM lots '
-    . 'ORDER BY lot_name DESC LIMIT ' . $page_items . ' OFFSET ' . $offset;
+//$sqllots = 'SELECT * FROM lots ' . 'ORDER BY lot_name DESC LIMIT ' . $page_items . ' OFFSET ' . $offset;
 
+$sqllots = 'SELECT * FROM lots ';
+// Проверяем, был ли задан поисковый запрос
+if (!empty($search)) {
+    // Если да, добавляем условие полнотекстового поиска
+    $sqllots .= "WHERE MATCH(lot_name, description_lot) AGAINST('$search') ";
+    $result = mysqli_query($con, "SELECT COUNT(*) as cnt FROM lots WHERE MATCH(lot_name, description_lot) AGAINST('$search') ");
+}
+
+// Добавляем условие сортировки и лимитирования
+$sqllots .= 'ORDER BY lot_name DESC LIMIT ' . $page_items . ' OFFSET ' . $offset;
+// Теперь у вас есть полный SQL-запрос, который может содержать условие полнотекстового поиска в зависимости от значения $search
 $resultlots  = mysqli_query($con, $sqllots);
 $announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
+
+$search = $_GET['q'] ?? '';
+$sqlsearch = "SELECT * FROM lots WHERE MATCH(lot_name,description_lot) AGAINST('$search')";
+$resultsearch  = mysqli_query($con, $sqlsearch);
+$searchq = mysqli_fetch_all($resultsearch , MYSQLI_ASSOC);
 
 
 
@@ -83,6 +104,7 @@ $page_content= include_template('search.php',
         'pages'=>$pages,
         'cur_page'   =>  $cur_page
 
+
     ]);
 
 $layout_content = include_template ('layout-lot.php',
@@ -91,7 +113,8 @@ $layout_content = include_template ('layout-lot.php',
         'user_name' => $user_name,
         'is_auth'=>$is_auth,
 // 'name_user1' => $result_name_nick3
-       "categories" => $categories
+       "categories" => $categories,
+        'search'=>$search
     ]);
 
 
