@@ -3,19 +3,16 @@ require_once ('helpers.php');
 require_once ('pages/test.php');
 require_once ('config/session.php');
 require_once ('config/config.php');
-$title="test";
-
-
 if ($con == false) {
     print("Ошибка подключения: " . mysqli_connect_error());
 }
 else {
-   // print("Соединение установлено");
+    // print("Соединение установлено");
 }
 
 if (!$con) {
     $error = mysqli_connect_error();
-   print("няма бд");
+    print("няма бд");
 } else {
     $sql = "SELECT name_category, title FROM categories";
     $result = mysqli_query($con, $sql);
@@ -67,7 +64,7 @@ function getTimeAgo($betDate) {
 
 
 function get_query_lot ($id_lot) {
- return "SELECT * FROM lots  JOIN categories ON lots.category=categories.id
+    return "SELECT * FROM lots  JOIN categories ON lots.category=categories.id
     WHERE lots.id=$id_lot;";
 }
 
@@ -85,63 +82,23 @@ $maxfin= mysqli_fetch_assoc( $resultmax);
 if (!$maxfin) {
     $maxfin = array(); // Вернуть пустой массив, если нет результатов
 }
+$max=$maxfin["betprice"];
 
-
-function get_time_left ($date) {
-    date_default_timezone_set('Europe/Moscow');
-
-    $final_date = date_create($date);
-    $cur_date = date_create("now");
-    if ($final_date > $cur_date) { // Заменил проверку на >
-        $diff = date_diff($cur_date, $final_date); // Поменял местами даты здесь
-        $format_diff = date_interval_format($diff, "%d %H %I");
-        $arr = explode(" ", $format_diff);
-        $hours = $arr[0] * 24 + $arr[1];
-        $minutes = intval($arr[2]);
-        $hours = str_pad($hours, 2, "0", STR_PAD_LEFT);
-        $minutes = str_pad($minutes, 2, "0", STR_PAD_LEFT);
-        return [$hours, $minutes];
-    }
-    return ['00', '00']; // Вернуть 00:00, если дата уже прошла
-}
-$error=[];
+echo "max: " . $max . "<br>";
+echo "page: " . $id . "<br>";
+echo "user: " . $user_id . "<br>";
+$cost=55;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cost = filter_input(INPUT_POST,"cost",FILTER_VALIDATE_INT);
-  //  $cost=55;
     $max=$maxfin["betprice"];
-    if (empty($cost)){
-        $error="не заполнено";
+    if($cost>$max){
+        $maxp = "INSERT INTO bets (price, user_id, lot_id) VALUES ($cost, $user_id, $id);";
+        header("Location: /lot.php?id=25");
+        echo "cost: " . $cost . "<br>";
+    }else{
+        echo "error";
     }
-    else{
-        if($cost>$max){
-            $maxp = "INSERT INTO bets (price, user_id, lot_id) VALUES ($cost, $user_id, $id);";
-            $statement = db_get_prepare_stmt($con, $maxp);
-            $statement->execute();
-            header("Location: /lot.php?id=$id");
-            $error=$cost;
-            echo "cost: " . $cost . "<br>";
-        }else{
-            echo "error";
-        }
-    }
+
 }
-
-$page_content= include_template('main-lot.php',
-[
-    "categories" => $categories,
-    "lot" => $lot,
-    "betsrate"=> $betsrate,
-   // "minutesAgo"=>$minutesAgo
-    'is_auth'=>$is_auth,
-    'maxfin'=>$maxfin,
-    'error'=>$error
-]);
-
-$layout_content = include_template ('layout-lot.php',
-['content'=>$page_content,
-    'title'=> 'тест',
-    'user_name' => $user_name,
-    'is_auth'=>$is_auth,
-    "categories" => $categories
-]);
-print ($layout_content);
+echo "cost: " . $cost . "<br>";
+var_dump( "maxp: " . $maxp . "<br>");

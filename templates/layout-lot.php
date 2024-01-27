@@ -20,7 +20,7 @@ require_once ('config/session.php');
                 <img src="../img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
             <form class="main-header__search" method="get" action="/search.php" autocomplete="off">
-                <input type="search" name="q" placeholder="Поиск лота" value="<?=  $search; ?>">
+                <input type="search" name="q" placeholder="Поиск лота" value="<?php if(isset($search)) echo $search; ?>">
                 <input class="main-header__search-btn" type="submit" name="s" value="найти">
             </form>
             <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
