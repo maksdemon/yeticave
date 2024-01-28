@@ -26,9 +26,11 @@ if (!$con) {
     }
 }
 
-//$id=25;
-//$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-echo "page: " . $id . "<br>";
+$id=$_SESSION["id"];
+
+var_dump($_SESSION);
+//echo "page: " . $id . "<br>";
+echo "page: " . $_SESSION["id"] . "<br>";
 
 if ($id) {
     $sql = get_query_lot ($id);
@@ -101,6 +103,7 @@ function get_time_left ($date) {
     return ['00', '00']; // Вернуть 00:00, если дата уже прошла
 }
 $error=[];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cost = filter_input(INPUT_POST,"cost",FILTER_VALIDATE_INT);
   //  $cost=55;
@@ -110,12 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else{
         if($cost>$max){
-            $maxp = "INSERT INTO bets (price, user_id, lot_id) VALUES ($cost, $user_id, $id);";
+            $maxp = "INSERT INTO bets (price, user_id, lot_id) VALUES ($cost, $user_id,  {$_SESSION['id']})";
             $statement = db_get_prepare_stmt($con, $maxp);
             $statement->execute();
             header("Location: /lot.php?id=$id");
             $error=$cost;
             echo "cost: " . $cost . "<br>";
+
         }else{
             echo "error";
         }
