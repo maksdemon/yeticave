@@ -27,16 +27,20 @@
               <?= $value['title'] ?>
           </td>
           <td class="rates__timer">
-            <div class="timer timer--finishing">07:13:34</div>
+              <?php   $res = getTimeAgomy($value['expiration_date'])?>
+            <div class="timer timer--finishing"> ч.<?= "$res[0] : $res[1]"; ?>
+            </div>
+
           </td>
           <td class="rates__price">
-              <?= $value['max_betprice'] ?>
+              <?= $value['betprice'] ?>
           </td>
           <td class="rates__time">
-            5 минут назад
+              <?= $value['bet_date'] ?>
           </td>
         </tr>
           <?php endforeach; ?>
+          <!-- Ваш HTML-комментарий здесь
         <tr class="rates__item">
           <td class="rates__info">
             <div class="rates__img">
@@ -121,7 +125,7 @@
           </td>
         </tr>
 
-
+          -->
       </table>
     </section>
   </main>

@@ -10,7 +10,7 @@
 <body>
 
 <div class="page-wrapper">
-
+    <?= var_dump($errors) ?>
 
     <main>
 
@@ -24,8 +24,7 @@
                 </div>
                 <div class="form__item">
                     <label for="category">Категория <sup>*</sup></label>
-                    <select id="category" name="category" >
-                        <option>Выберите категорию</option>
+                    <select id="category" name="category"  >
                         <?php foreach ($categories as $category): ?>
                         <option value="<?=$category["id"] ?>">
                                <?= $category["title"]; ?>

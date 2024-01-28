@@ -2,6 +2,7 @@
 require_once ('helpers.php');
 require_once ('pages/test.php');
 require_once ('config/session.php');
+require_once ('config/config.php');
 /*
 $con = mysqli_connect("localhost", "yeti", "mN2sB4oZ6c", "yeti");
 mysqli_set_charset($con, "utf8");
@@ -41,7 +42,7 @@ if (!$con) {
 $errors=[];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
-  //  var_dump($addlot);
+   var_dump($addlot);
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
@@ -59,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $value6 =$addlot['lot-step'];
     $value7 =$addlot['lot-date'];
     $value8 =$user_id;
+
 
     if (!is_numeric($value5) || $value5 <= 0) {
         $errors['lot-rate'] = 'Введите число больше нуля в поле "начальная цена"';

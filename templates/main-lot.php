@@ -18,7 +18,8 @@
             <div class="lot-item__cost-state">
                 <div class="lot-item__rate">
                     <span class="lot-item__amount">Текущая цена</span>
-                    <span class="lot-item__cost"><?= $maxfin["betprice"]; ?></span>
+                    <span class="lot-item__cost"><?= isset($maxfin["betprice"]) ? $maxfin["betprice"] : format_sum($lot["price"]); ?>
+</span>
                 </div>
                 <div class="lot-item__min-cost">
                     Мин. ставка <span><?= format_sum($lot["price"]); ?></span>

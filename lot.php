@@ -26,7 +26,7 @@ if (!$con) {
     }
 }
 
-$id=25;
+//$id=25;
 //$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 echo "page: " . $id . "<br>";
 
@@ -48,19 +48,15 @@ if ($res) {
 function getTimeAgo($betDate) {
     $currentTime = time(); // Текущее время в формате timestamp
     $betDateTimestamp = strtotime($betDate); // Время сделки в формате timestamp
-
     $timeDifference = $currentTime - $betDateTimestamp; // Разница в секундах
-
     // Вычисляем количество минут
     $minutesAgo = floor($timeDifference / 60);
-
     if ($minutesAgo < 60) {
         return "{$minutesAgo} минут назад";
     } else {
         // Если прошло больше 60 минут, вычисляем количество часов
         $hoursAgo = floor($minutesAgo / 60);
         $remainingMinutes = $minutesAgo % 60;
-
         return "{$hoursAgo} часов и {$remainingMinutes} минут назад";
     }
 }
