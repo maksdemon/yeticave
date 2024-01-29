@@ -28,7 +28,7 @@
           </td>
           <td class="rates__timer">
               <?php   $res = getTimeAgomy($value['expiration_date'])?>
-            <div class="timer timer--finishing"> ч.<?= "$res[0] : $res[1]"; ?>
+            <div class="timer timer--finishing"><?= "$res[0]:$res[1]:$res[0]"; ?>
             </div>
 
           </td>

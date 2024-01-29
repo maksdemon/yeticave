@@ -9,7 +9,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($categories as  $category=> $value) : ?>
                 <li class="promo__item promo__item--<?= htmlspecialchars($category)?>">
-                    <a class="promo__link" href="pages/all-lots.html"><?= $value['title'] ?></a>
+                    <a class="promo__link" href="category.php?idcat=<?= $value["id"]; ?>"><?= $value['title'] ?></a>
                 </li>
             <?php endforeach; ?>
             </li>
@@ -27,7 +27,7 @@
                         <img src=" /uploads/<?=htmlspecialchars($value['picture']); ?>" width="350" height="260" alt="">
                     </div>
                     <div class="lot__info">
-                        <span class="lot__category"><?= $value['category'] ?></span>
+                        <span class="lot__category"><?= $value['title'] ?></span>
 
                         <h3 class="lot__title"><a class="text-link" href="lot.php?id=<?= $value['id'] ?>"><?= $value['lot_name'] ?></a></h3>
                         <div class="lot__state">

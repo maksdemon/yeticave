@@ -10,7 +10,7 @@
 <body>
 
 <div class="page-wrapper">
-    <?= var_dump($errors) ?>
+
 
     <main>
 

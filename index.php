@@ -73,7 +73,7 @@ function Timelimit ($datetime) {
 $sqllots = "   SELECT lots.id AS lotsid, lots.*, categories.*
 FROM lots
 JOIN categories ON lots.category = categories.name_category";*/
-$sqllots = "SELECT * FROM lots LIMIT 6 ";
+$sqllots = "SELECT lots.*,categories.title, categories.id AS catid FROM lots JOIN categories  ON lots.category=categories.id LIMIT 6 ";
 $resultlots  = mysqli_query($con, $sqllots);
 $announcements_list = mysqli_fetch_all($resultlots , MYSQLI_ASSOC);
 

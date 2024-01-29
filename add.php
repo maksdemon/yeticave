@@ -42,7 +42,7 @@ if (!$con) {
 $errors=[];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $addlot=$_POST;
-   var_dump($addlot);
+ //  var_dump($addlot);
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {

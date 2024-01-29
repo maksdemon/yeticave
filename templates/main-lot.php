@@ -33,9 +33,7 @@
                 </p>
                 <button type="submit" class="button">Сделать ставку</button>
             </form>
-            <?php
-            var_dump($error);
-            ?>
+
         </div>
         <?php else: // Если пользователь не авторизован ?>
             <!-- Здесь можете добавить код, который будет отображаться, когда пользователь не авторизован -->
@@ -44,11 +42,7 @@
         <div class="history">
             <h3>История ставок (<span>10</span>)</h3>
             <table class="history__list">
-                <tr class="history__item">
-                    <td class="history__name">Иван</td>
-                    <td class="history__price">10 999 р</td>
-                    <td class="history__time">5 минут назад</td>
-                </tr>
+
                 <?php foreach ($betsrate as $category=>$value): ?>
                     <tr class="history__item">
                         <td class="history__name"><?= $value["user_name"]; ?></td>

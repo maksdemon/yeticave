@@ -16,7 +16,7 @@ require_once ('config/session.php');
     <header class="main-header">
         <div class="main-header__container container">
             <h1 class="visually-hidden">YetiCave</h1>
-            <a class="main-header__logo" href="index.html">
+            <a class="main-header__logo" href="/">
                 <img src="../img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
             </a>
             <form class="main-header__search" method="get" action="/search.php" autocomplete="off">
@@ -28,7 +28,7 @@ require_once ('config/session.php');
                 <?php if ($is_auth): ?>
                     <div class="user-menu__logged">
                         <p><?= $user_name; ?></p>
-                        <a  class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
+                        <a  class="user-menu__bets" href="/my-bet.php">Мои ставки</a>
                         <a  class="user-menu__logout" href="/logout.php">Выход</a>
                     </div>
                 <?php else: ?>
@@ -50,10 +50,9 @@ require_once ('config/session.php');
             <ul class="nav__list container">
                 <?php foreach ($categories as $category): ?>
                     <li class="nav__item">
-                        <a href="pages/all-lots.html"><?= $category["title"]; ?></a>
+                        <a href="category.php?idcat=<?= $category["id"]; ?>"><?= $category["title"]; ?></a>
                     </li>
                 <?php endforeach; ?>
-
             </ul>
         </nav>
         <section class="lot-item container"><?= $content; ?></section>

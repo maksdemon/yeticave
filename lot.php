@@ -17,7 +17,7 @@ if (!$con) {
     $error = mysqli_connect_error();
    print("няма бд");
 } else {
-    $sql = "SELECT name_category, title FROM categories";
+    $sql = "SELECT name_category, title,id FROM categories";
     $result = mysqli_query($con, $sql);
     if ($result) {
         $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -28,9 +28,9 @@ if (!$con) {
 
 $id=$_SESSION["id"];
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 //echo "page: " . $id . "<br>";
-echo "page: " . $_SESSION["id"] . "<br>";
+//echo "page: " . $_SESSION["id"] . "<br>";
 
 if ($id) {
     $sql = get_query_lot ($id);
