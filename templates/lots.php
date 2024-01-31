@@ -12,7 +12,7 @@
     <main>
         <div class="container">
             <section class="lots">
-                <h2>Все лоты в категории <span>«Доски и лыжи»</span></h2>
+                <h2>Все лоты в категории <span><?=$title1; ?></span></h2>
                 <ul class="lots__list">
                     <?php foreach ($lot as $key => $value) : ?>
                         <li class="lots__item lot">

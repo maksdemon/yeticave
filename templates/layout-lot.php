@@ -21,12 +21,12 @@ require_once ('config/session.php');
             </a>
             <form class="main-header__search" method="get" action="/search.php" autocomplete="off">
                 <input type="search" name="q" placeholder="Поиск лота" value="<?php if(isset($search)) echo $search; ?>">
-                <input class="main-header__search-btn" type="submit" name="s" value="найти">
+                <input class="main-header__search-btn type="submit" name="s" value="найти">
             </form>
             <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
             <nav class="user-menu">
                 <?php if ($is_auth): ?>
-                    <div class="user-menu__logged">
+                    <div class="user-menu__l  ogged">
                         <p><?= $user_name; ?></p>
                         <a  class="user-menu__bets" href="/my-bet.php">Мои ставки</a>
                         <a  class="user-menu__logout" href="/logout.php">Выход</a>

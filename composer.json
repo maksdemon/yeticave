@@ -1,0 +1,9 @@
+{
+    "name": "mak/yeti",
+    "description": "yeticave",
+    "require": {
+        "symfony/mailer": "^6.0",
+        "wixel/gump": "^1.11",
+        "imagine/imagine": "^1.3"
+    }
+}

@@ -51,6 +51,12 @@ $sqllot = "SELECT lots.*,categories.title, categories.id AS catid FROM lots JOIN
 $resultlot = mysqli_query($con, $sqllot);
 $lot = mysqli_fetch_all($resultlot , MYSQLI_ASSOC);
 
+$sqllot1 = "SELECT lots.*,categories.title, categories.id AS catid FROM lots JOIN categories  ON lots.category=categories.id WHERE lots.category=$cateid";
+$resultlot1 = mysqli_query($con, $sqllot);
+$row = mysqli_fetch_assoc($resultlot1);
+$title1 = $row['title'];
+
+
 function Timelimit ($datetime) {
     date_default_timezone_set('Europe/Moscow');
     if ($datetime instanceof DateTime) {
@@ -75,7 +81,7 @@ function Timelimit ($datetime) {
 $page_content= include_template('lots.php',
     [
         //    "categories" => $categories,
-
+        "title1" =>$title1,
          "lot" => $lot,
         "errors" =>$errors,
         // "addlot"=>$addlot
